@@ -3,6 +3,8 @@ import { View,Text,Image,StyleSheet,FlatList } from "react-native";
 import Header from "./components/Header";
 import ListItem from "./components/ListItem";
 // import { uuid } from 'uuidv4';
+import AddItem from "./components/AddItem";
+
 
 const initalItems = [
   {id: 1, text: 'Milk'},
@@ -13,6 +15,12 @@ const initalItems = [
 const App = () => {
   const [items,setItems] = useState(initalItems);
 
+  const onAddItem = (textInput) => {
+    setItems((prev)=>{
+      return [...prev,{id:5,text:textInput}]
+    })
+  }
+
   const itemDeleteHandler = (id) => {
     console.log("id")
     setItems((prevState)=>{
@@ -22,6 +30,7 @@ const App = () => {
   return(
     <View style={styles.container}>
       <Header title='Shopping Cart'/>
+      <AddItem onPress={onAddItem}/>
       <FlatList         
         data={items}
         renderItem={({item}) => <ListItem item={item} onPress={itemDeleteHandler} />}
